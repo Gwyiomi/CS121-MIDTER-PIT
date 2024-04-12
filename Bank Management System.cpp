@@ -19,7 +19,6 @@ void display_Allaccounts();
 void deposit_withdraw(int search_acc, int option);
 void balance_inquiry(int search_acc);
 void remove_account(int search_acc);
-int verifyInput();
 
 
 int main() {
@@ -81,6 +80,7 @@ int main() {
 		} 
 	}
 }
+
 
 void create_account() {
 	cout << "Enter account number(must be 6 digit) : "; cin >> acc_num[accountCount];
