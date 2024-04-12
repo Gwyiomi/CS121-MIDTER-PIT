@@ -19,6 +19,7 @@ void display_Allaccounts();
 void deposit_withdraw(int search_acc, int option);
 void balance_inquiry(int search_acc);
 void remove_account(int search_acc);
+void modify_account(int search_acc);
 
 
 int main() {
@@ -33,7 +34,8 @@ int main() {
         cout << "\n\n\t\t\t4. BALANCE ENQUIRY";
         cout << "\n\n\t\t\t5. REMOVE ACCOUNT";
         cout << "\n\n\t\t\t6. ALL ACCOUNT HOLDER LIST";
-        cout << "\n\n\t\t\t7. EXIT";
+        cout << "\n\n\t\t\t7. MODIFY AN ACCOUNT";
+        cout << "\n\n\t\t\t8. EXIT";
         cout << "\n\n\t\tSelect Your Option (1-7): ";
         cin >> choice;
         cout << "\n\n";
@@ -50,7 +52,7 @@ int main() {
         		break;
         	case 3 :
         		cout<< "\n\n\t=== TO WITHDRAW AMOUNT ===";
-				cout << "\n\n\t\tEnter account number : ";
+				cout << "\n\n\tEnter account number : ";
         		cin >> search_acc;
         		deposit_withdraw(search_acc, 2);
         		break;
@@ -69,8 +71,14 @@ int main() {
         	case 6 :
         		display_Allaccounts();
         		break;
-        	case 7:
-        		cout << "Exiting...";
+        	case 7 :
+        		cout<< "\n\n\t=== MODIFY ACCOUNT ===";
+        		cout << "\n\n\tEnter account number : "; 
+				cin >> search_acc;
+        		modify_account(search_acc);
+        		break;
+        	case 8:
+        		cout << "\n\n\n\t\t==== Thanks for using Bank Management System ====" << endl;
         		return 0;
         	default : 
         		cout << "\n\t\aInvalid choice. Please enter a number between 1 and 7.";
@@ -80,7 +88,6 @@ int main() {
 		} 
 	}
 }
-
 
 void create_account() {
 	cout << "Enter account number(must be 6 digit) : "; cin >> acc_num[accountCount];
@@ -98,7 +105,6 @@ void create_account() {
     cin.get();
 
 }
-
 
 
 void display_Allaccounts() {
@@ -145,8 +151,12 @@ void deposit_withdraw(int search_acc, int option) {
 	        balance[index] += amount;
 	
 	        cout << "\n\tDeposit of $" << amount << " successful." << endl;
+	        cout << "\n\tPress enter to continue...";
+    		cin.ignore();
+   			cin.get();
 	    } else {
 	        cout << "\a\n\t! Account not found !" << endl;
+	        cout << "\n\n\tPress enter to continue...";
 	        cin.ignore();
 	        cin.get();
 	    }
@@ -165,10 +175,14 @@ void deposit_withdraw(int search_acc, int option) {
 				cin.get();
 			} else {
 				cout << "\n\tWithdraw of $" << amount << " successful." << endl;
+				cout << "\n\tPress enter to continue...";
+    			cin.ignore();
+   				cin.get();
 			}
 
 	    } else {
-	        cout << "\a\n\t\t! Account not found !" << endl;
+	        cout << "\a\n\t! Account not found !" << endl;
+	        cout << "\n\tPress enter to continue...";
 	        cin.ignore();
 	        cin.get();
 	    }
@@ -189,6 +203,7 @@ void balance_inquiry(int search_acc) {
     if (index != -1) {
         cout << "\n\n\tAccount holder: " << name[index] << endl;
         cout << "\n\tAccount balance: $ " << balance[index] << endl;
+        cout << "\n\t=======================";
         cout << "\n\n\tPress enter to continue...";
         cin.ignore();
         cin.get();
@@ -219,7 +234,7 @@ void remove_account(int search_acc) {
         }
         accountCount--;
 
-        cout << "\n\n\tAccount removed successfully." << endl;
+        cout << "\n\tAccount removed successfully." << endl;
         cout << "\n\tPress enter to continue...";
         cin.ignore();
         cin.get();
@@ -236,3 +251,36 @@ void remove_account(int search_acc) {
 	}
 }
 
+
+void modify_account(int search_acc) {
+	int index = -1;
+	
+	for (int i = 0; i < accountCount; ++i) {
+        if (acc_num[i] == search_acc) {
+            index = i;
+            break;
+        }    	
+    }
+    
+    if (index != -1) {
+    	cout << "\n\tEnter The New Details of account"<<endl;
+	    cout << " \nAccount No. : "; 
+		cin >> acc_num[index];
+		cout<<" Modify Account Holder Name : ";
+		cin.ignore();
+		getline(cin, name[index]);
+		cout << " Modify Balance amount : ";
+		cin >> balance[index];
+		
+		cout<<"\n\n\tRecord Updated...";
+    	cout << "\n\n\tPress enter to continue...";
+    	cin.ignore();
+   		cin.get();
+	} else {
+		cout << "\a\n\t! Account not found !" << endl;
+        cout << "\n\tPress enter to continue...";
+        cin.ignore();
+        cin.get();
+	}
+	
+}
